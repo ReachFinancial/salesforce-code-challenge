@@ -1,0 +1,87 @@
+name: Issue Scratch Orgs
+on:
+  workflow_dispatch:
+    inputs:
+      firstname:
+        description: 'FirstName'
+        required: true
+        type: string
+        default: ''
+      lastname:
+        description: 'LastName'
+        required: true
+        type: string
+        default: ''
+      email:
+        description: 'Email'
+        required: true
+        type: string
+        default: ''
+
+
+jobs:
+  SPIN-SCRATCH-ORG:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v4
+        - name: Installing Dependencies
+          run: |
+            npm install @salesforce/cli -g
+      
+        - name: Authenticate DevHub Org
+          run: |
+            echo "Authenticate the Salesforce DevHub org"
+            DIRECTORY=`pwd`
+            SERVER_KEY_FILE=$DIRECTORY/server.key
+            echo "${{ secrets.SERVER_KEY }}" > $SERVER_KEY_FILE
+            sf org login jwt --client-id ${{ vars.CLIENT_ID }} \
+            --jwt-key-file server.key \
+            --username ${{ vars.USERNAME }} \
+            --alias DEV_HUB \
+            --instance-url ${{ vars.INSTANCE_URL }}
+
+        - name: Create Scratch Org
+          run: |
+            sf org create scratch --target-dev-hub DEV_HUB \
+            --edition developer \
+            -a NEW-SCRATCH-ORG \
+            --duration-days 30
+        
+        - name: Generate Admin Password and Store Info
+          run: |
+            
+            sf org generate password -o NEW-SCRATCH-ORG
+
+            scratch_org_id_18=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.id')
+            scratch_org_id_15=$(echo $scratch_org_id_18 | cut -c 1-15)
+            scratch_org_instance_url=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.instanceUrl')
+            scratch_org_password=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.password')
+            active_org_record_id=$(sf data query --query "SELECT Id FROM ActiveScratchOrg WHERE ScratchOrg='$scratch_org_id_15'" -o NEW-SCRATCH-ORG --json | jq -r '.result.records[0].Id')
+
+            echo "Scratch Org ID: $scratch_org_id_15"
+            echo "Scratch Org instance: $scratch_org_instance_url"
+            echo "Scratch Org password: $scratch_org_password"
+            echo "Scratch Org Record Id in DevHub: $active_org_record_id"
+
+            sf data update record --sobject ActiveScratchOrg \
+            --record-id $active_org_record_id \
+            --values "Instance_URL__c='$scratch_org_instance_url' Password__c='$scratch_org_password'"
+
+        - name: Get Admin Profile
+          run: |
+            profile_id=$(sf data query --query "SELECT Id FROM Profile WHERE Name='System Administrator'" -o NEW-SCRATCH-ORG --json | jq -r '.result.records[0].Id')
+            echo "Profile ID: $profile_id"
+            echo "profile_id=$profile_id" >> $GITHUB_ENV
+
+        - name: Create Candidate's Users
+          run: |
+            username="${{ github.event.inputs.email }}.challenge"
+            email="${{ github.event.inputs.email }}"
+            alias="${{ github.event.inputs.lastname }}"
+            first_name="${{ github.event.inputs.firstname }}"
+            last_name="${{ github.event.inputs.lastname }}"
+            
+            sf data create record --sobject User \
+            -o NEW-SCRATCH-ORG \
+            --values "Firstname='$first_name' Lastname='$last_name' Username='$username' Email='$email' Alias='$alias' ProfileId='${{ env.profile_id }}' TimeZoneSidKey='America/New_York' LocaleSidKey='en_US' EmailEncodingKey='ISO-8859-1' LanguageLocaleKey='en_US'" \
+            --json
