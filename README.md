@@ -72,6 +72,11 @@ Traditionally, this process required substantial amounts of paperwork and back-a
     - Don’t worry about access control, data sharing, security, or any other more complex configuration work; you can talk about these aspects 
 
 <hr>
-<br>
 
-<u>*__We do not expect candidates to spend more than 2 hours in total on this__*</u>, and we’re not expecting a legitimate implementation — just a basic demo with some of the key functionality stubbed out to demonstrate how you would build this in more detail. 
+### Additional Coaching
+
+<u>*__We do not expect candidates to spend more than 2 hours in total on this__*</u>, and we’re not expecting a prod-ready implementation — just a basic demo with some of the key functionality stubbed out to demonstrate how you would build this in more detail. 
+
+<u>*__We do expect candidates to use this as an opportunity to highlight their developer workflow__*</u>, and we're looking to get a feel for how you will be working in the real world both as an SF dev but also one on the team.
+
+<br /><br />
