@@ -61,15 +61,17 @@ jobs:
 
             scratch_org_record=$(sf data query --query "SELECT Id, SignupUsername FROM ActiveScratchOrg WHERE ScratchOrg='$scratch_org_id_15'" -o DEV_HUB --json)
             active_org_record_id=$(echo $scratch_org_record | jq -r '.result.records[0].Id')
-            active_org_record_username=$(echo $scratch_org_record | jq -r '.result.records[0].SignupUsername')
             
             echo "Scratch Org Record Id in DevHub: $active_org_record_id"
             echo "Scratch Org Username: $active_org_record_username"
 
+            candidate_name=${{ github.event.inputs.firstname }} ${{ github.event.inputs.lastname }}
+            candidate_email="${{ github.event.inputs.email }}"
+
             sf data update record -o DEV_HUB \
             --sobject ActiveScratchOrg \
             --record-id $active_org_record_id \
-            --values "Instance_URL__c='$scratch_org_instance_url' Username__c='$active_org_record_username' Password__c='$scratch_org_password'"
+            --values "Instance_URL__c='$scratch_org_instance_url' Password__c='$scratch_org_password' Candidate_Name__c='$candidate_name' Candidate_Email__c='$candidate_email'"
 
         - name: Get Admin Profile
           run: |
