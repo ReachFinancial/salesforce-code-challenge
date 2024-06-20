@@ -49,23 +49,27 @@ jobs:
         
         - name: Generate Admin Password and Store Info
           run: |
-            
             sf org generate password -o NEW-SCRATCH-ORG
-
             scratch_org_id_18=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.id')
             scratch_org_id_15=$(echo $scratch_org_id_18 | cut -c 1-15)
+            echo "Scratch Org ID: $scratch_org_id_15"
+
             scratch_org_instance_url=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.instanceUrl')
             scratch_org_password=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.password')
-            active_org_record_id=$(sf data query --query "SELECT Id FROM ActiveScratchOrg WHERE ScratchOrg='$scratch_org_id_15'" -o NEW-SCRATCH-ORG --json | jq -r '.result.records[0].Id')
-
-            echo "Scratch Org ID: $scratch_org_id_15"
             echo "Scratch Org instance: $scratch_org_instance_url"
             echo "Scratch Org password: $scratch_org_password"
-            echo "Scratch Org Record Id in DevHub: $active_org_record_id"
 
-            sf data update record --sobject ActiveScratchOrg \
+            scratch_org_record=$(sf data query --query "SELECT Id, SignupUsername FROM ActiveScratchOrg WHERE ScratchOrg='$scratch_org_id_15'" -o DEV_HUB --json)
+            active_org_record_id=$(echo $scratch_org_record | jq -r '.result.records[0].Id')
+            active_org_record_username=$(echo $scratch_org_record | jq -r '.result.records[0].SignupUsername')
+            
+            echo "Scratch Org Record Id in DevHub: $active_org_record_id"
+            echo "Scratch Org Username: $active_org_record_username"
+
+            sf data update record -o DEV_HUB \
+            --sobject ActiveScratchOrg \
             --record-id $active_org_record_id \
-            --values "Instance_URL__c='$scratch_org_instance_url' Password__c='$scratch_org_password'"
+            --values "Instance_URL__c='$scratch_org_instance_url' Username__c='$active_org_record_username' Password__c='$scratch_org_password'"
 
         - name: Get Admin Profile
           run: |
