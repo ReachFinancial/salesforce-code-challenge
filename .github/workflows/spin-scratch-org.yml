@@ -65,7 +65,7 @@ jobs:
             echo "Scratch Org Record Id in DevHub: $active_org_record_id"
             echo "Scratch Org Username: $active_org_record_username"
 
-            candidate_name=${{ github.event.inputs.firstname }} ${{ github.event.inputs.lastname }}
+            candidate_name="${{ github.event.inputs.firstname }} ${{ github.event.inputs.lastname }}"
             candidate_email="${{ github.event.inputs.email }}"
 
             sf data update record -o DEV_HUB \
