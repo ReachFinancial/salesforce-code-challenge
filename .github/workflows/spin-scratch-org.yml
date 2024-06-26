@@ -56,6 +56,7 @@ jobs:
 
             scratch_org_instance_url=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.instanceUrl')
             scratch_org_password=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.password')
+            echo "::add-mask::$scratch_org_password"
             echo "Scratch Org instance: $scratch_org_instance_url"
             echo "Scratch Org password: $scratch_org_password"
 
