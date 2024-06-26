@@ -49,14 +49,15 @@ jobs:
         
         - name: Generate Admin Password and Store Info
           run: |
-            sf org generate password -o NEW-SCRATCH-ORG
+            scratch_org_password=$(sf org generate password -o NEW-SCRATCH-ORG --complexity 3 --json | jq -r '.result.password')
+            echo "::add-mask::$scratch_org_password"
+
             scratch_org_id_18=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.id')
             scratch_org_id_15=$(echo $scratch_org_id_18 | cut -c 1-15)
             echo "Scratch Org ID: $scratch_org_id_15"
 
             scratch_org_instance_url=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.instanceUrl')
-            scratch_org_password=$(sf org display -o NEW-SCRATCH-ORG --json | jq -r '.result.password')
-            echo "::add-mask::$scratch_org_password"
+            
             echo "Scratch Org instance: $scratch_org_instance_url"
             echo "Scratch Org password: $scratch_org_password"
 
