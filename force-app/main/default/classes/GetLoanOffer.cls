@@ -1,4 +1,4 @@
-public with sharing class getLoanOffer {
+public with sharing class GetLoanOffer {
 
     /*
 
@@ -13,7 +13,7 @@ public with sharing class getLoanOffer {
 
     */
 
-    public getLoanOffer() {
+    public GetLoanOffer() {
         //
     }
 
