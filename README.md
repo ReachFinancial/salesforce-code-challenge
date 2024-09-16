@@ -59,14 +59,7 @@ Traditionally, this process required substantial amounts of paperwork and back-a
 
 ### Your assignment is as follows: 
 
-1. **Sketch out in a diagram an architecture that uses Salesforce Platform’s capabilities to realize an end-to-end digital experience for the above process**
-    - Describe which Salesforce capabilities you would use for which parts of the use cases 
-    - Provide a summary of key considerations for the future:  
-        - What governor limits or other architectural constraints that Salesforce imposes may become an issue in the future? Why?  
-        - What data permission structures should you keep in mind or potentially consider?  
-        - How would you manage subsequent changes to your solution?  
-
-2. **Build a very rudimentary prototype version using a [Salesforce Developer Org](https://developer.salesforce.com/signup) that allows you to demonstrate the end-to-end scenario**
+**Build a very rudimentary prototype version using the [Salesforce Developer Org](https://developer.salesforce.com/signup) that we provide to you for the end-to-end scenario**
     - Keep any of the logic engines (e.g., the pricing) hard-coded; we do not expect you to build any heavy-duty application logic as part of this 
     - Don’t worry about making the UI pretty beyond what’s easily configurable 
     - Don’t worry about access control, data sharing, security, or any other more complex configuration work; you can talk about these aspects 
