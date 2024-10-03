@@ -54,7 +54,7 @@ We are looking for a few things specifically, so choose your time wisely:
 
 To help you focus on the above, we’ve set up a few basic constructs to work from in the this repo that you can fork and work from:
 
-*   The Account object has been set up with Person Accounts and renamed `Client`
+*   The Account object has been set up with Person Accounts
 *   A new custom `Application__c` object has been created to act as the primary record for the prospective borrower’s application
 *   We’ve created a core Apex class with an invocable action called `getLoanOffer.cls` and its pair test class to give you a place to start.
 *   We’ve created a core Flow to use for the application process called `Reach Application Process`
