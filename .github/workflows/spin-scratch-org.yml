@@ -27,7 +27,7 @@ jobs:
         - name: Installing Dependencies
           run: |
             npm install @salesforce/cli -g
-      
+
         - name: Authenticate DevHub Org
           run: |
             echo "Authenticate the Salesforce DevHub org"
@@ -46,7 +46,7 @@ jobs:
             --edition developer \
             -a NEW-SCRATCH-ORG \
             --duration-days 30
-        
+
         - name: Generate Admin Password and Store Info
           run: |
             scratch_org_password=$(sf org generate password -o NEW-SCRATCH-ORG --complexity 3 --json | jq -r '.result.password')
@@ -93,3 +93,6 @@ jobs:
             -o NEW-SCRATCH-ORG \
             --values "Firstname='$first_name' Lastname='$last_name' Username='$username' Email='$email' Alias='$alias' ProfileId='${{ env.profile_id }}' TimeZoneSidKey='America/New_York' LocaleSidKey='en_US' EmailEncodingKey='ISO-8859-1' LanguageLocaleKey='en_US'" \
             --json
+
+          # The "Reset Password" button in Setup will not work unless the user has an existing password
+            sf org generate password -o $username  --complexity 0
