@@ -94,5 +94,5 @@ jobs:
             --values "Firstname='$first_name' Lastname='$last_name' Username='$username' Email='$email' Alias='$alias' ProfileId='${{ env.profile_id }}' TimeZoneSidKey='America/New_York' LocaleSidKey='en_US' EmailEncodingKey='ISO-8859-1' LanguageLocaleKey='en_US'" \
             --json | jq -r '.result.id')
 
-            echo "System.setPassword('$user_id', UUID.randomUUID());" > set_password.apex            
+            echo "System.setPassword('$user_id', UUID.randomUUID().toString());" > set_password.apex            
             sf apex run -o NEW-SCRATCH-ORG -f set_password.apex
