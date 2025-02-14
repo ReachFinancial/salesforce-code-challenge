@@ -94,5 +94,4 @@ jobs:
             --values "Firstname='$first_name' Lastname='$last_name' Username='$username' Email='$email' Alias='$alias' ProfileId='${{ env.profile_id }}' TimeZoneSidKey='America/New_York' LocaleSidKey='en_US' EmailEncodingKey='ISO-8859-1' LanguageLocaleKey='en_US'" \
             --json
 
-          # The "Reset Password" button in Setup will not work unless the user has an existing password
             sf org generate password -o $username  --complexity 0
