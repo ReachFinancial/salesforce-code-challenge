@@ -46,3 +46,13 @@ $RECYCLE.BIN/
 
 # VS Code
 .vscode/
+
+# Added by Illuminated Cloud
+/.idea/
+/IlluminatedCloud/
+/out/
+target/
+/.illuminatedCloud/
+**/tsconfig*.json
+**/*.tsbuildinfo
+*.iml
