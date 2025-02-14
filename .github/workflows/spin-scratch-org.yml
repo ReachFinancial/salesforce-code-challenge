@@ -89,12 +89,10 @@ jobs:
             first_name="${{ github.event.inputs.firstname }}"
             last_name="${{ github.event.inputs.lastname }}"
             
-            sf data create record --sobject User \
+            user_id=$(sf data create record --sobject User \
             -o NEW-SCRATCH-ORG \
             --values "Firstname='$first_name' Lastname='$last_name' Username='$username' Email='$email' Alias='$alias' ProfileId='${{ env.profile_id }}' TimeZoneSidKey='America/New_York' LocaleSidKey='en_US' EmailEncodingKey='ISO-8859-1' LanguageLocaleKey='en_US'" \
-            --json
+            --json | jq -r '.result.id')
 
-            user_id=$(sf data query --query "SELECT Id FROM User WHERE Username='$username'" -o NEW-SCRATCH-ORG --json | jq -r '.result.records[0].Id')
-            echo "System.setPassword('$user_id', 'Password123!');" > set_password.apex            
-            
+            echo "System.setPassword('$user_id', UUID.randomUUID());" > set_password.apex            
             sf apex run -o NEW-SCRATCH-ORG -f set_password.apex
