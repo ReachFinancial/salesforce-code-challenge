@@ -33,7 +33,7 @@ Build a very rudimentary prototype version using a Salesforce scratch org that a
             *   If the number of credit lines is > 50, deny the application.
             
         *   Otherwise, the borrower should be presented with an offer that is pulled directly from this external API:
-            * [https://raw.githubusercontent.com/ReachFinancial/salesforce-code-challenge/main/assets/data/reach-sample-api-response.json](https://raw.githubusercontent.com/ReachFinancial/salesforce-code-challenge/main/assets/data/reach-sample-api-response.json "https://raw.githubusercontent.com/ReachFinancial/salesforce-code-challenge/main/assets/data/reach-sample-api-response.json")
+            * https://raw.githubusercontent.com/ReachFinancial/salesforce-code-challenge/main/assets/data/reach-sample-api-response.json
         
         *   Consider how this will be triggered, and how the data will flow back to the rest of the process.
         *   Consider best practices when calling out to 3rd parties from within Salesforce.
@@ -43,13 +43,14 @@ Build a very rudimentary prototype version using a Salesforce scratch org that a
             *   If the number of credit lines is < 10, the 36-month term and 10% interest offer applies.
             *   If the number of credit lines is >= 10 and <= 50, the 24-month term and 20% interest offer applies. 
                 
-        *   This should be clearly presented to the borrower.
+        *   The application's result should be clearly presented to the borrower.
             
     *   Once the borrower has agreed to the terms, they are prompted to upload an identity document. The application is then submitted, and the borrower is informed of a 24-hour review turnaround.
         
         *   No special automation for the upload is required. We are only looking to upload and store a document.
 
-*   Update your branch with your changes if you haven’t already
+*   Update your branch with your changes if you haven’t already.
+*   Push your branch and create a pull request from it back into the `ReachFinancial/salesforce-code-challenge` repository
     
 
 We are looking for a few things specifically, so choose your time wisely:
