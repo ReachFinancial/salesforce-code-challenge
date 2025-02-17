@@ -24,7 +24,7 @@
     }
   ],
   "status": {
-    "code": "000",
+    "code": "200",
     "message": "Successful offer first time"
   }
 }
