@@ -50,7 +50,7 @@ Build a very rudimentary prototype version using a Salesforce scratch org that a
         *   No special automation for the upload is required. We are only looking to upload and store a document.
 
 *   Update your branch with your changes if you haven’t already.
-*   Push your branch and create a pull request from it back into the `ReachFinancial/salesforce-code-challenge` repository
+*   Zip up your branch's changes and email them to your interviewer.
     
 
 We are looking for a few things specifically, so choose your time wisely:
