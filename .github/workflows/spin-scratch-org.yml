@@ -84,11 +84,11 @@ jobs:
         - name: Create Candidate's Users
           run: |
             username="${{ github.event.inputs.email }}.challenge"
-            email="${{ github.event.inputs.email }}"
-            alias="${{ github.event.inputs.lastname }}"
+            email="${{ github.event.inputs.email }}"          
             first_name="${{ github.event.inputs.firstname }}"
             last_name="${{ github.event.inputs.lastname }}"
-            
+            alias=$(echo "$last_name" | cut -c 1-8)
+
             user_id=$(sf data create record --sobject User \
             -o NEW-SCRATCH-ORG \
             --values "Firstname='$first_name' Lastname='$last_name' Username='$username' Email='$email' Alias='$alias' ProfileId='${{ env.profile_id }}' TimeZoneSidKey='America/New_York' LocaleSidKey='en_US' EmailEncodingKey='ISO-8859-1' LanguageLocaleKey='en_US'" \
