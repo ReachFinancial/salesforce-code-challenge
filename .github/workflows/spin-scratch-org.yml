@@ -85,7 +85,7 @@ jobs:
           run: |
             username="${{ github.event.inputs.email }}.challenge"
             email="${{ github.event.inputs.email }}"
-            alias="${{ github.event.inputs.lastname }}"
+            alias="${{ github.event.inputs.lastname }:0:8}"
             first_name="${{ github.event.inputs.firstname }}"
             last_name="${{ github.event.inputs.lastname }}"
             
