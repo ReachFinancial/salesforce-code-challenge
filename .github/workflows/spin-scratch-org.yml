@@ -87,8 +87,7 @@ jobs:
             email="${{ github.event.inputs.email }}"          
             first_name="${{ github.event.inputs.firstname }}"
             last_name="${{ github.event.inputs.lastname }}"
-            alias="${last_name:0:8}"
-#            alias="${{ github.event.inputs.lastname }}"
+            alias=$(echo "$last_name" | cut -c 1-8)
 
             user_id=$(sf data create record --sobject User \
             -o NEW-SCRATCH-ORG \
