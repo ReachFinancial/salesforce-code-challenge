@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <description>This step retrieves an offer from the offer service</description>
+        <name>Get_Offer_From_Offer_Service</name>
+        <label>Get Offer From Offer Service</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <actionName>getLoanOffer</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Show_Offer</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <nameSegment>getLoanOffer</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>61.0</apiVersion>
+    <description>A flow to walk a prospect through our workflow</description>
+    <environments>Default</environments>
+    <interviewLabel>Reach Application Process {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Application Process - Reach Code Challenge</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <description>This step collects data from the borrower</description>
+        <name>Get_Prospect_Input</name>
+        <label>Get Prospect Input</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Get_Offer_From_Offer_Service</targetReference>
+        </connector>
+        <fields>
+            <name>WelcomeText</name>
+            <fieldText>&lt;p&gt;Hi there! We&apos;re excited to get you a brand new Reach loan. Let&apos;s get started by providing some basic information about you to help us tailor your offer.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>BorrowerName</name>
+            <extensionName>flowruntime:name</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>disabled</name>
+                <value>
+                    <booleanValue>false</booleanValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>BorrowerAddress</name>
+            <extensionName>flowruntime:address</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>addressLabel</name>
+                <value>
+                    <stringValue>Address</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Requested_Loan_Amount</name>
+            <dataType>Number</dataType>
+            <fieldText>Requested Loan Amount</fieldText>
+            <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+            <scale>0</scale>
+        </fields>
+        <fields>
+            <name>BorrowerSSN</name>
+            <dataType>String</dataType>
+            <fieldText>SSN</fieldText>
+            <fieldType>InputField</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>false</isRequired>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <description>This step shows the offer to the prospect</description>
+        <name>Show_Offer</name>
+        <label>Show Offer</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Prospect_Input</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+</Flow>
