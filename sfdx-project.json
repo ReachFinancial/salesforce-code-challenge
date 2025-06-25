@@ -7,6 +7,6 @@
   ],
   "name": "reach-code-challenge-metadata",
   "namespace": "",
-  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sfdcLoginUrl": "https://test.salesforce.com",
   "sourceApiVersion": "61.0"
 }
