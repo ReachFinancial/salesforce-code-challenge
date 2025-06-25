@@ -1,0 +1,30 @@
+{
+  "offers": [
+    {
+      "termInMonths": 24,
+      "interestRatePercentage": 20,
+      "monthlyPayment": 500.00,
+      "expirationDate": "20200330T1236K",
+      "effectiveDate": "20200330T1236k",
+      "finderNumber": "A12123123",
+      "campaignId": "Aug_Campaign",
+      "eligibilityFlag": "A",
+      "tradeBaseDate": "20211020"
+    },
+    {
+      "termInMonths": 36,
+      "interestRatePercentage": 10,
+      "monthlyPayment": 400.00,
+      "expirationDate": "20200330T1236K",
+      "effectiveDate": "20200330T1236k",
+      "finderNumber": "A12123123",
+      "campaignId": "Aug_Campaign",
+      "eligibilityFlag": "A",
+      "tradeBaseDate": "20211020"
+    }
+  ],
+  "status": {
+    "code": "200",
+    "message": "Successful offer first time"
+  }
+}
